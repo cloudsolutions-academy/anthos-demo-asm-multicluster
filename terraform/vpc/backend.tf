@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "sandbox-312412-anthos-tf"
+    bucket = "[PROJECT-ID]-anthos-tf"
     prefix = "vpc"
   }
 }
