@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp2
+  labels:
+    app: nodeapp2
+    service: nodeapa2p
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: nodeapp2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp2
+  labels:
+    app: nodeapp2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp2
+  template:
+    metadata:
+      labels:
+        app: nodeapp2
+    spec:
+      containers:
+      - name: nodeapp2
+        image: gcr.io/sandbox-312412/nodeapp2:latest
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+        - name: gcr-key

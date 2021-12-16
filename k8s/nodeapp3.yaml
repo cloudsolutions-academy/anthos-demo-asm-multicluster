@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp3
+  labels:
+    app: nodeapp3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp3
+  template:
+    metadata:
+      labels:
+        app: nodeapp3
+    spec:
+      containers:
+      - name: nodeapp3
+        image: gcr.io/sandbox-312412/nodeapp3:latest
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: #IfNotPresent Always
+        ports:
+        - containerPort: 9000
+      imagePullSecrets:
+        - name: gcr-key

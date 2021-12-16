@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp5
+  labels:
+    app: nodeapp5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp5
+  template:
+    metadata:
+      labels:
+        app: nodeapp5
+    spec:
+      containers:
+      - name: nodeapp5
+        image: gcr.io/sandbox-312412/nodeapp5:latest
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 9000
+      imagePullSecrets:
+        - name: gcr-key

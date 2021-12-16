@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp2
+  labels:
+    app: nodeapp2
+    service: nodeapp2
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: nodeapp2
