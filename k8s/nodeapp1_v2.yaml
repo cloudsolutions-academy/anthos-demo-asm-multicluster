@@ -7,35 +7,37 @@ metadata:
     service: nodeapp1
 spec:
   ports:
-  - port: 8080
+  - port: 80
     name: http
+    protocol: TCP
+    targetPort: 9000
   selector:
-    app: node-app1
+    app: nodeapp1
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodeapp1-v2
   labels:
-    app: node-app1
+    app: nodeapp1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node-app1
+      app: nodeapp1
   template:
     metadata:
       labels:
-        app: node-app1
+        app: nodeapp1
     spec:
       containers:
       - name: nodeapp1
-        image: gcr.io/sandbox-312412/nodeapp1:v2
+        image: gcr.io/anthos-demo-335406/nodeapp1:v2
         resources:
           requests:
             cpu: "100m"
         imagePullPolicy: Always #IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 9000
       imagePullSecrets:
         - name: gcr-key

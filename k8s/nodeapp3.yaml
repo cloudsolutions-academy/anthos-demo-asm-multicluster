@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodeapp3
-        image: gcr.io/sandbox-312412/nodeapp3:latest
+        image: gcr.io/anthos-demo-335406/nodeapp3:latest
         resources:
           requests:
             cpu: "100m"

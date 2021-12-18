@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp1
+  labels:
+    app: nodeapp1
+    service: nodeapp1
+spec:
+  ports:
+  - port: 80 
+    name: http
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: nodeapp1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp1-v1
+  labels:
+    app: nodeapp1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp1
+  template:
+    metadata:
+      labels:
+        app: nodeapp1
+    spec:
+      containers:
+      - name: nodeapp1
+        image: gcr.io/anthos-demo-335406/nodeapp1:v1
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: Always #IfNotPresent
+        ports:
+        - containerPort: 9000
+      imagePullSecrets:
+        - name: gcr-key
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp3
+  labels:
+    app: nodeapp3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp3
+  template:
+    metadata:
+      labels:
+        app: nodeapp3
+    spec:
+      containers:
+      - name: nodeapp3
+        image: gcr.io/anthos-demo-335406/nodeapp3:latest
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: #IfNotPresent Always
+        ports:
+        - containerPort: 9000
+      imagePullSecrets:
+        - name: gcr-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp3
+  labels:
+    app: nodeapp3
+    service: nodeapp3
+spec:
+  ports:
+  - port: 80
+    name: http
+    protocol: TCP
+    targetPort: 9000
+  - port: 443
+    name: https
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: nodeapp3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp2
+  labels:
+    app: nodeapp2
+    service: nodeapp2
+spec:
+  ports:
+  - port: 80
+    name: http
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: nodeapp2

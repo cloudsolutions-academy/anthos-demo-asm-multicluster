@@ -7,7 +7,9 @@ metadata:
     service: nodeapp2
 spec:
   ports:
-  - port: 8080
+  - port: 80
     name: http
+    protocol: TCP
+    targetPort: 9000
   selector:
     app: nodeapp2
